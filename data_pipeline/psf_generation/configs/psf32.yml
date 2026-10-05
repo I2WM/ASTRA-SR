@@ -1,0 +1,29 @@
+simulation:
+  seed: 0
+  M: 8
+  delta_t: 0.5
+  out_dir: "outputs"
+  save_prefix: "new"
+
+atmosphere:
+  csv_path: "/data/umihebi0/users/shuhong/cosmic_ir/RawSR_legancy/ESO_MASS_2025.csv"
+  row_index: 0
+  n_layers: 6
+  heights_m: [0.0, 2400.0, 4800.0, 7200.0, 9600.0, 12000.0]
+  wind_speeds_mps: [5.0, 8.0, 10.0, 12.0, 18.0, 25.0]
+
+optics:
+  D_m: 0.5
+  wavelength_m: 5.0e-07
+  outer_scale_m: 20.0
+
+sampling:
+  image_size: 256
+  plate_scale_arcsec_per_px: 0.1
+  out_grid: 32
+  sim_grid: 16
+  kernel_size: 33
+  pupil_samples: 128
+  pupil_pad_factor: 1.5
+  focal_q: 2.0
+  focal_num_airy: 64

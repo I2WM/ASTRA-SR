@@ -1,0 +1,162 @@
+[
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/safir_x2_models.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/safir_x2_models.py",
+    "sha256": "182b8f30a6f111535b78157f7d8ac8f342105f360690ee36834ab317f801cec6"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/safir_x2_core_models.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/safir_x2_core_models.py",
+    "sha256": "dc24cd6f46d6fa68ba260dfe5f9c3d7209679da88396905767cfffcc1ca53f88"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/safir_x2_core_pilot_v1.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/safir_x2_core_pilot_v1.py",
+    "sha256": "08c3ea41dac3ffabf2c70c5dd8d3277c9b9099bc7386272ccaaf5537b02730fa"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/round1_module_search_20260822_v1/safir_x2_round1_models.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/safir_x2_round1_models.py",
+    "sha256": "14825689be74b4cfbf7d6e9b6f077e3abd7820b3c0477d2b75c07c069641589f"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/baseline_code/scgn_rln_x2_speed_smoke.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/scgn_rln_x2_speed_smoke.py",
+    "sha256": "c9652b354e88dc5c97536447eeff4618c8070b0ebf450dd0744b603c972a0797"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/baseline_code/starir_x2_speed_smoke.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/starir_x2_speed_smoke.py",
+    "sha256": "5f5c21d88496ab7d4fcabf09b608088c087f4124b0a3966f161671b3d9c2ea8d"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/baseline_code/starir_x2_formal.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/starir_x2_formal.py",
+    "sha256": "5b11f6bd09d0bd94036eede1fb98aaba8ace3e3769b15ccf2896922c95857feb"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/baseline_code/x2_baseline_models.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/x2_baseline_models.py",
+    "sha256": "9e30dc29b39b3dcf3a0b68a7d76c3516d3a5566abb6e41fd3cdbf1284cac81f6"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/baseline_code/queue_other_x2_baselines_20260821_v1.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/queue_other_x2_baselines_20260821_v1.py",
+    "sha256": "d1784c68e772cc05b61c43e8bb5e73580888b2c85a88f1c1a05ed6dd1d8ef341"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/baseline_code/restormer_x2_formal.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/restormer_x2_formal.py",
+    "sha256": "e1456b1eb57ff6c4dba31994152a820112bc65a8580f91ed6a39497c5e5eb30d"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/baseline_code/traditional_x2_eval.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/traditional_x2_eval.py",
+    "sha256": "9340a4c5734c423d686d21f92dc8071e403743330532d0844e5ebd0cafecd5f8"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/baseline_code/queue_x2_baseline_extension_20260821_v1.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/queue_x2_baseline_extension_20260821_v1.py",
+    "sha256": "b056b3392ed7d7c96bcaa238267c7d4365cdd8bedb6c6c63d5fce19e2d808b5b"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/baseline_code/starir_x2_formal_v2.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/starir_x2_formal_v2.py",
+    "sha256": "d4d4c269e09c6173b354cf63e0c7ec23c910348a7c8e942deb6b54fe50c1993a"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir_pipeline_v1/stage4_autorun/scgn_local_global/backups/stage2_runtime_snapshot_20260806_v15/rawsr/ema.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/rawsr/ema.py",
+    "sha256": "9550aefb50c68c2d19f0410f57559ebc801e08fd77171709a2f43c97e67f0991"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir_pipeline_v1/stage4_autorun/scgn_local_global/backups/stage2_runtime_snapshot_20260806_v15/rawsr/fits_train.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/rawsr/fits_train.py",
+    "sha256": "6656c8eebd0becd8eeee3460ccb29841dbb58c453be9253e142f6b3f3632b890"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir_pipeline_v1/stage4_autorun/scgn_local_global/backups/stage2_runtime_snapshot_20260806_v15/rawsr/object_metrics.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/rawsr/object_metrics.py",
+    "sha256": "bb345b74b5c0ca89de790cac375a5951ada8d787db85090af33834b41ad48947"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir_pipeline_v1/stage4_autorun/scgn_local_global/backups/stage2_runtime_snapshot_20260806_v15/rawsr/ofr_losses.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/rawsr/ofr_losses.py",
+    "sha256": "c61dd350b8ed5822458ecfa211e74d997dc77e9c9a1ba78343e7b9a03208aee3"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir_pipeline_v1/stage4_autorun/scgn_local_global/backups/stage2_runtime_snapshot_20260806_v15/rawsr/pair_ops.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/rawsr/pair_ops.py",
+    "sha256": "7929c9013bad5cf150c601cb410dea24fa9056685127c86a26b7532a6af29b45"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir_pipeline_v1/stage4_autorun/scgn_local_global/backups/stage2_runtime_snapshot_20260806_v15/rawsr/restoration.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/rawsr/restoration.py",
+    "sha256": "843dc0283e69d4ddb214c0f5be75809fc816f1c1cfbc02c69026804da7b6cf34"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir_pipeline_v1/stage4_autorun/scgn_local_global/backups/stage2_runtime_snapshot_20260806_v15/rawsr/starir.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/rawsr/starir.py",
+    "sha256": "ab18cfc02a50bfd3c4ff4643287e1e2dee08ca19ab983e1e922493d8a146a67b"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir_pipeline_v1/stage4_autorun/scgn_local_global/backups/stage2_runtime_snapshot_20260806_v15/rawsr/__init__.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/rawsr/__init__.py",
+    "sha256": "c15ba2f1788b846e2b92903d707c0bce92132a0e505b29655cd4144ba8a3239c"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir_pipeline_v1/stage4_autorun/a_prime_candidate_20260806_v1/stage4_a_prime/adapters.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/stage4_a_prime/adapters.py",
+    "sha256": "3af495f8089b22af467b25ff7870ba53206bde17838fb9ba65011f48e1957da7"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir_pipeline_v1/stage4_autorun/a_prime_candidate_20260806_v1/stage4_a_prime/model.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/stage4_a_prime/model.py",
+    "sha256": "56ddc935d88a3c2f08d019760651c168f35a5739387d61f3ce4c7f1e85e65f94"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir_pipeline_v1/stage4_autorun/a_prime_candidate_20260806_v1/stage4_a_prime/__init__.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/stage4_a_prime/__init__.py",
+    "sha256": "65da1875823de38d888efbf846468bf5bd8c4043eb8c1819731ec95740a7fae5"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir_pipeline_v1/stage4_autorun/darkir_scgn_v2_candidate_20260813_v1/stage4_darkir_scgn/__init__.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/stage4_darkir_scgn/__init__.py",
+    "sha256": "823adaf67fc95b87548ffc920992fd246d3cbbd7b2f957febdefb53d061b3992"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir_pipeline_v1/stage4_autorun/darkir_scgn_v2_candidate_20260813_v1/stage4_darkir_scgn/model.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/stage4_darkir_scgn/model.py",
+    "sha256": "8ca708b7b7a5c5fadc6c5a071f733515141b968bb58c21a579a686a858415009"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir_pipeline_v1/stage4_autorun/launch_candidates/final3_20260813_v1/candidate/stage4_darkir_scgn_final3/__init__.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/stage4_darkir_scgn_final3/__init__.py",
+    "sha256": "fd980af9368135d88f06df0a42f9fe13a675683fac19419f1661a3f1188b647b"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir_pipeline_v1/stage4_autorun/launch_candidates/final3_20260813_v1/candidate/stage4_darkir_scgn_final3/model.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/stage4_darkir_scgn_final3/model.py",
+    "sha256": "a4370dba26c4e7ae634ad64037c67d12186931acc3a5ee8a902c32c2b7ffba5b"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir_pipeline_v1/stage4_autorun/launch_candidates/g3_small8192_20260815_v1/candidate/stage4_darkir_scgn_g2/model.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/stage4_darkir_scgn_g2/model.py",
+    "sha256": "02b045c8efac6d40f1e65bd40f7067fda4a9d762f1599440dfc63be1e9af1b0d"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir_pipeline_v1/stage4_autorun/launch_candidates/g3_small8192_20260815_v1/candidate/stage4_darkir_scgn_g2/__init__.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/stage4_darkir_scgn_g2/__init__.py",
+    "sha256": "52be8afa6f529b775dd13d1c819884a460b60cfd22e8ed44796b2efbc67e4a85"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir_pipeline_v1/stage4_autorun/launch_candidates/g3_small8192_20260815_v1/candidate/stage4_darkir_scgn_g3/model.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/stage4_darkir_scgn_g3/model.py",
+    "sha256": "f96773d95a635131dbd4f4f187fbb13364fdb8cbc11bbb8f33a837f648c863f8"
+  },
+  {
+    "source": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir_pipeline_v1/stage4_autorun/launch_candidates/g3_small8192_20260815_v1/candidate/stage4_darkir_scgn_g3/__init__.py",
+    "snapshot": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_code/gxn_r1sf_paper_ablation_v1/frozen/stage4_darkir_scgn_g3/__init__.py",
+    "sha256": "15e7ac5eecadb15f3ba2ee4974b16387399d6a8362b98b0070d654dee775f662"
+  }
+]

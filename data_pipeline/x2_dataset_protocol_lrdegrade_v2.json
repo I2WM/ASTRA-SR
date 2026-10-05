@@ -1,0 +1,99 @@
+{
+  "schema_version": 2,
+  "protocol_id": "strict_noleak_x2_sr_256to512_lrdegrade_gaussian_v2_20260821",
+  "phase_name": "冻结数据集与协议",
+  "status": "FROZEN_SCIENTIFIC_DEFINITION",
+  "supersedes_dataset_only": "strict_noleak_x2_sr_256to512_gaussian_v1_20260819",
+  "task": {
+    "type": "single_image_x2_super_resolution_with_restoration",
+    "model_input_role": "degraded_lr256",
+    "model_target_role": "clean_hr512",
+    "inference_inputs": ["degraded_lr256"],
+    "scale_factor": 2,
+    "same_field_of_view": true
+  },
+  "geometry": {
+    "allowed_source_shapes": [[1024, 1024], [1080, 1080]],
+    "standardized_clean_shape": [1024, 1024],
+    "clean_hr_shape": [512, 512],
+    "clean_lr_shape": [256, 256],
+    "degraded_lr_shape": [256, 256],
+    "real_source_standardization": "center_crop_1080_to1024_before_resize",
+    "png_source_standardization": "identity_1024",
+    "source_to_hr_operator": "Pillow float32 BILINEAR 1024_to512",
+    "source_to_lr_operator": "Pillow float32 BILINEAR 1024_to256",
+    "hr_is_not_used_to_generate_lr": true,
+    "sum_flux_conservation": false,
+    "training_patch_crop_allowed": false
+  },
+  "degradation": {
+    "order": [
+      "standardize_clean_source_to1024",
+      "ordinary_bilinear_resize_to_clean_lr256",
+      "spatially_varying_psf_on_clean_lr256",
+      "gaussian_noise_on_psf_only_lr256"
+    ],
+    "psf": {
+      "bank_shape_expected": [32, 32, 33, 33],
+      "kernel_pixel_scale_arcsec": 0.1,
+      "apply_resolution": [256, 256],
+      "kernel_resampling": "forbidden",
+      "pca_basis_count": 12,
+      "pca_solver": "leading_12_singular_subspace_via_scipy_svds_propack_with_full_svd_fallback"
+    },
+    "noise": {
+      "type": "zero_mean_gaussian_only",
+      "sigma": 2.0,
+      "units": "stored_image_units",
+      "apply_resolution": [256, 256],
+      "clip_output_min": 0.0,
+      "saved_realization": "noise_map_lr256_preclipping"
+    }
+  },
+  "nonfinite_policy": {
+    "source_stage": "after_1080_center_crop_before_resize",
+    "small_component_max_pixels": 64,
+    "small_component_max_fraction": 0.00008,
+    "background_ring_width": 12,
+    "background_ring_min_pixels": 128,
+    "background_fill_min_touched_sides": 1,
+    "background_ring_mean_max_ratio": 0.12,
+    "background_ring_p95_max_ratio": 0.35,
+    "background_ring_bright_fraction_max": 0.02,
+    "bright_ring_threshold_ratio": 0.45,
+    "structured_region_action": "reject_to_separate_manifest"
+  },
+  "analysis_assets": {
+    "clean_lr256": "stored",
+    "psf_only_lr256": "stored",
+    "noise_only_lr256": "max(clean_lr256 + noise_map_lr256, 0)",
+    "noise_map_lr256": "stored pre-clipping",
+    "full_lr256": "degraded_lr256",
+    "model_inference_uses_analysis_assets": false
+  },
+  "split": {
+    "parent_protocol": "strict_noleak_train_val_test_srcid_dedup67231_20260711_v2",
+    "unit": "source_id",
+    "train_val_test_overlap_allowed": false,
+    "physical_png_oversampling_allowed": false,
+    "training_sampler_balancing_allowed": true
+  },
+  "remote_paths": {
+    "project_root": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir",
+    "new_x2_root": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data",
+    "dataset_root": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/datasets/strict_v2_x2_lrdegrade_v2",
+    "rejected_v1_root": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/datasets/strict_v2_x2_v1",
+    "psf_root": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/psf_npy"
+  },
+  "required_outputs": [
+    "clean_hr512",
+    "clean_lr256",
+    "psf_only_lr256",
+    "noise_only_lr256",
+    "noise_map_lr256",
+    "degraded_lr256",
+    "records.jsonl",
+    "summary.json",
+    "validation_report.json"
+  ]
+}

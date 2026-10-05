@@ -1,0 +1,11 @@
+{
+  "verdict": "PASS",
+  "epochs": 20,
+  "samples_seen": 1271640,
+  "step": 48585,
+  "from_scratch": true,
+  "selection_rule": "fixed_epoch20_primary; best-val20_secondary_for_all",
+  "endpoint_checkpoint": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_runs/gxn_r1sf_paper_ablation_v1/CONTROL/checkpoints/step_048585.pt",
+  "endpoint_sha256": "79adb6c8dc158d7d0365fa9d21178fa0d32f7c65ffa8a7bca64436343bfa2fad",
+  "fullval_count": 1355
+}

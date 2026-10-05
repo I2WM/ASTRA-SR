@@ -1,0 +1,7 @@
+{
+  "paper_models.py": "8566354de836becac0ff010f51a7ef2c02e72720e88a3be00b24d206cc9a76a8",
+  "paper_train.py": "480f726e841ad13155249825586764f4a4056fe74a991735565c38ed8d8b721e",
+  "paper_smoke.py": "056af7aaa2d64108fe9fffac0d925c9cb4fb95bfcab6e82068791f6588b3878d",
+  "paper_queue.py": "c9d52acfd8711482f7e4e2da1bc3e91fc00175af8c67894ac529735ae077a91b",
+  "deploy_snapshot.py": "7da30843503edbcceb23da010fa2012041a1d6dfad0a0bd02d833c22822b840c"
+}

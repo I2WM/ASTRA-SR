@@ -1,0 +1,62 @@
+{
+  "variant": "NO_BACK_LOCAL",
+  "question": "Contribution of four multi-dilation reconstruction residuals",
+  "control": "CONTROL",
+  "records": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/datasets/strict_v2_x2_lrdegrade_v2/records.jsonl",
+  "records_sha256": "e196fa6221ff32850b476cbca8014c89f693fad577787aa668dd4025e648a4d2",
+  "protocol": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/protocol/x2_dataset_protocol_lrdegrade_v2.json",
+  "protocol_sha256": "480dd13e79b8e71a72e133ec408c253d9d01323fd7d53c3067d2819b8b9d9c4c",
+  "train_count": 63582,
+  "val_count": 1355,
+  "epochs": 20,
+  "batch_schedule": {
+    "epochs1_5": 36,
+    "epochs6_20": 24
+  },
+  "steps_schedule": {
+    "epochs1_5": 8835,
+    "epochs6_20": 39750,
+    "total": 48585
+  },
+  "sample_exposure": 1271640,
+  "seed": 0,
+  "from_scratch": true,
+  "learning_rate": 0.0001,
+  "weight_decay": 0.0001,
+  "scheduler": "late_cosine_last25pct_first8835_steps_to_1e-5_then_fixed_1e-5",
+  "gradient_loss_weight": 0.1,
+  "midpoint_loss_weight": 0.1,
+  "pixel_loss": "L1",
+  "midpoint_loss": "area_down4_L1",
+  "grad_clip": 1.0,
+  "amp_init_scale": 1024.0,
+  "amp": "fp16",
+  "intensity_scale": 2500.0,
+  "eval_batch_size": 2,
+  "workers": 0,
+  "input_shape": [
+    1,
+    256,
+    256
+  ],
+  "target_shape": [
+    1,
+    512,
+    512
+  ],
+  "inference_inputs": [
+    "degraded_lr256"
+  ],
+  "GT_condition_at_inference": false,
+  "sample_order": "torch.randperm(seed+epoch_index), no replacement, drop_last=False",
+  "checkpoint_every": 128,
+  "checkpoint_all_epoch_endpoints": true,
+  "eval_every_epoch": true,
+  "selection": "fixed_epoch20_primary; best-val20_secondary_for_all",
+  "evidence_class": "full_train_single_seed_validation_ablation_not_final_test",
+  "initialization": "build full R1-SF first then remove only named module; common tensors exact",
+  "historical_control_reuse": false,
+  "historical_difference": "new matched control; explicit same-batch numerical retry and epoch eval RNG isolation",
+  "run_dir": "/data/umihebi0/users/shuhong/cosmic_ir/RawSR/gxn_safir/new_x2_data/method_runs/gxn_r1sf_paper_ablation_v1/NO_BACK_LOCAL",
+  "source_manifest_sha256": "5c8a7e64b3b629760adefa72cb66654d16eceb05f847757e8ee62bfaa8e87d00"
+}

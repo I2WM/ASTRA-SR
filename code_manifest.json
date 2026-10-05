@@ -1,0 +1,17 @@
+{
+  "paper_models.py": "8566354de836becac0ff010f51a7ef2c02e72720e88a3be00b24d206cc9a76a8",
+  "paper_train.py": "480f726e841ad13155249825586764f4a4056fe74a991735565c38ed8d8b721e",
+  "paper_smoke.py": "056af7aaa2d64108fe9fffac0d925c9cb4fb95bfcab6e82068791f6588b3878d",
+  "paper_queue.py": "c9d52acfd8711482f7e4e2da1bc3e91fc00175af8c67894ac529735ae077a91b",
+  "deploy_snapshot.py": "7da30843503edbcceb23da010fa2012041a1d6dfad0a0bd02d833c22822b840c",
+  "paper_launch_when_ready.py": "bce7993156be1c3cb27c1c30272610fdc4349529b81e66e7283c3f38c984bf29",
+  "configs/CONTROL.json": "eeaedadc3282dc06c87352c1d92482350a211e957f7e770d8031444e8d84b95b",
+  "configs/NO_A2BAND.json": "48fae69fd52c65ee6c0d178d314db9c71e3c0a93133274ea7f78cdf0bda89631",
+  "configs/NO_MID_LOSS.json": "6cc23457de6b72f8e39e575eb92a27839a860b9b64bc9c0371f65b127859753f",
+  "configs/NO_BACK_LOCAL.json": "2203dcf586fa672d0885bdbc8b464a4eb5996e12d425c70910f8e1280d6a65e8",
+  "configs/NO_PATCH.json": "8d4eeebd74c847fb2193cd720b162384aaf3090ae028be3a7aebae878ed3424f",
+  "configs/NO_CONFIDENCE.json": "31c98e4de2536bd1370438ca1120afec073f7a10ba4aeabb41dd65ee3e0045aa",
+  "configs/NO_SR_S.json": "3ebd800801fe29906bbd4056b0d9aa11c066976b6c8052d22be6486b56465e7c",
+  "configs/NO_SR_F.json": "680c7a047acaac1ee8f3ff54102deb63187c493370d31e0c699b29ff45461c92",
+  "configs/NO_SR_SF.json": "3ebad0144e468433db97f9de87069cc23f92489cbd71bbf91c5658b75bb5de3a"
+}

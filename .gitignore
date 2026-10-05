@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+
+# large artifacts are released via Hugging Face / Google Drive, not git
+checkpoints/*.pt
+checkpoints/*.pth
+psf_bank/*.npy
+
+# local run outputs
+runs/
+outputs/
+*.log
