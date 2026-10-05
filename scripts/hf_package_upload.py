@@ -111,7 +111,9 @@ hf download {repo_id} --repo-type dataset --local-dir ./astrasr_data
 archive against `SHA256SUMS.txt`, and extracts the aligned FITS arrays.
 
 Training code, model definition, evaluation protocol and a ready-made
-`infer.py` live in the companion code repository (I2WM GitHub org).
+`infer.py` live in the companion code repository:
+[**gexining/ASTRA-SR**](https://github.com/gexining/ASTRA-SR)
+(to be moved into the I2WM GitHub org).
 
 ## Data attribution
 
