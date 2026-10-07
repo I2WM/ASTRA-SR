@@ -61,14 +61,22 @@ current release files.
 
 ## Limits and pending review
 
-Validation performed for this update: six network-free download/index
-regression tests passed; the published 66,293-row index passed the portable
+Validation performed for this update: twelve network-free download/index and
+image-I/O regression tests passed; the published 66,293-row index passed the portable
 validator; the official checkpoint produced finite 512x512 FITS output from
 a synthetic 256x256 input on CPU; a one-image synthetic evaluation completed
 with `SMOKE_ONLY`. Object-mask and PSNR helper formulas matched the historical
 fixed-range evaluator on deterministic test tensors. The original epoch/LR
 schedule and resume sampler were also checked. Runtime: Python 3.13.3,
 PyTorch 2.13.0+cpu and TorchMetrics 1.9.0. No synthetic score is a paper result.
+
+A handoff recheck reproduced and fixed incorrect scaling of big-endian 16-bit
+TIFF images. Both uint16 byte orders and 16-bit PNG now use a 65,535 peak;
+multi-channel and nonfinite inputs fail explicitly. The `.fts` output alias
+also supports FITS round trips. A fresh Windows checkout with
+`core.autocrlf=true` previously invalidated the scientific hashes. The new
+`.gitattributes` preserves exact file bytes; all 91 existing release-file
+hashes passed in a fresh test checkout with that setting.
 
 Full 20-epoch training, full validation numerical equivalence and baseline
 retraining have not been rerun with these portable adapters. The source/data

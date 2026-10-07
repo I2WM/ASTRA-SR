@@ -62,6 +62,9 @@ as normalized image intensity; it is a visualization input, not a substitute for
 the benchmark's FITS arrays. Inputs larger than 256×256 are center-cropped.
 Use a single grayscale plane. FITS/NPY outputs preserve floating-point values;
 PNG output clips to [0,1] and quantizes to 8 bits.
+8-bit inputs use a 255 peak; 16-bit PNG/TIFF inputs use 65,535, including
+both TIFF byte orders. Convert color images to grayscale explicitly;
+multi-channel images and NaN/Inf inputs are rejected.
 
 The official checkpoint SHA-256 is checked before loading. For your own trained
 CONTROL checkpoint, pass its hash with `--checkpoint-sha256`. Use `evaluate.py`
@@ -199,6 +202,8 @@ from the current release hashes in `SHA256SUMS.txt`. Original absolute paths
 in frozen evidence identify historical inputs; public entry points do not use
 them. `docs/SHA256SUMS.txt` describes an earlier supplement bundle, not this Git
 checkout. See [third-party review status](THIRD_PARTY_NOTICES.md).
+The repository preserves file bytes with `.gitattributes`, so Windows Git
+line-ending conversion does not invalidate the scientific snapshot hashes.
 
 ## Citation
 

@@ -36,14 +36,26 @@ def load_input(path: Path) -> np.ndarray:
         from astropy.io import fits
         arr = np.asarray(fits.getdata(path), dtype=np.float32) / INTENSITY_SCALE
     elif suffix == ".npy":
-        arr = np.load(path).astype(np.float32) / INTENSITY_SCALE
+        arr = np.load(path, allow_pickle=False).astype(np.float32) / INTENSITY_SCALE
     else:
         from PIL import Image
-        im = Image.open(path)
-        arr = np.asarray(im, dtype=np.float32)
-        arr = arr / (65535.0 if im.mode == "I;16" else 255.0)
-    if arr.ndim == 3:
-        arr = arr[..., 0]
+        with Image.open(path) as im:
+            pixels = np.asarray(im)
+            if pixels.dtype == np.uint8:
+                peak = 255.0
+            elif pixels.dtype.kind == "u" and pixels.dtype.itemsize == 2:
+                # Covers both little-endian I;16 and big-endian I;16B TIFFs.
+                peak = 65535.0
+            elif im.format == "PNG" and im.mode == "I" and pixels.min() >= 0 and pixels.max() <= 65535:
+                # Older Pillow versions decode a 16-bit PNG to an int32 array.
+                peak = 65535.0
+            else:
+                raise ValueError(f"Use uint8/uint16 grayscale images or intensity-valued FITS/NPY: {im.mode}")
+            arr = pixels.astype(np.float32) / peak
+    if arr.ndim != 2:
+        raise ValueError(f"Expected a single grayscale plane, got shape {arr.shape}")
+    if not np.isfinite(arr).all():
+        raise ValueError("Input contains NaN or infinite intensities")
     if arr.shape[0] < 256 or arr.shape[1] < 256:
         raise ValueError(f"input must be at least 256x256, got {arr.shape}")
     y0 = (arr.shape[0] - 256) // 2
@@ -55,7 +67,7 @@ def save_output(path: Path, hr: np.ndarray, scale_back: bool) -> None:
     suffix = path.suffix.lower()
     if suffix == ".npy":
         np.save(path, hr * (INTENSITY_SCALE if scale_back else 1.0))
-    elif suffix in (".fits", ".fit"):
+    elif suffix in (".fits", ".fit", ".fts"):
         from astropy.io import fits
         fits.writeto(path, hr * (INTENSITY_SCALE if scale_back else 1.0),
                      overwrite=True)

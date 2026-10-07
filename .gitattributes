@@ -1,0 +1,3 @@
+# The scientific snapshot and release manifests are byte-hashed.
+# Preserve original line endings even when a client sets core.autocrlf=true.
+* -text
