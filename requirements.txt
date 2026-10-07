@@ -1,6 +1,8 @@
-# verified by an end-to-end CPU inference smoke test (infer.py) on 2026-10-06
+# Core inference and public dataset download. Use Python 3.12.
+# Install a PyTorch build matching your CPU/CUDA environment first.
 torch>=2.0
 numpy
 scipy
 astropy
 pillow
+huggingface_hub>=0.27

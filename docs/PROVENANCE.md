@@ -1,7 +1,8 @@
 # Provenance & Hash Locks
 
-Every artifact in this release is traceable to the formal training run that
-produced the paper's numbers. Verify any file with its SHA-256 below
+The model checkpoint and original experiment snapshot retain the hashes of
+the formal training run. Public convenience scripts are maintained separately.
+Verify the original artifacts with the hashes below
 (`certutil -hashfile <file> SHA256` on Windows, `sha256sum` on Linux).
 
 ## Model checkpoint (released)
@@ -14,8 +15,10 @@ produced the paper's numbers. Verify any file with its SHA-256 below
   `gxn_r1sf_paper_ablation_v1` (20 epochs, 48,585 steps, seed 0, host funa
   GPU 1, completed 2026-09-07).
 - Endpoint verdict: PASS, full-val 1,355/1,355 —
-  PSNR 35.8242, SSIM 0.8492, Obj-PSNR 32.1476 (see
-  `docs/evidence/training_summary.json`; this is paper Table 1's ASTRA-SR row).
+  The included `docs/evidence/training_summary.json` records completion,
+  step count, checkpoint hash and validation count, but not the metric values.
+  Paper Table 1 reports PSNR 35.824, SSIM 0.849 and Obj.-PSNR 32.148.
+  The per-sample historical evaluation logs are not included in this checkout.
 
 ## PSF bank row (released)
 
@@ -25,11 +28,14 @@ produced the paper's numbers. Verify any file with its SHA-256 below
 
 ## Code (this repo)
 
-- `code_manifest.json` — SHA-256 of the 14 deployed files of the formal run
+- `code_manifest.json` — SHA-256 of the 15 deployed files of the formal run
   (`paper_*.py`, `deploy_snapshot.py`, `configs/*.json`). All verified to
   match on 2026-10-06 after retrieval from the training host.
 - `frozen/` — dependency snapshot (model zoo, dataset classes, baseline
   implementations) used by the deployed code, retrieved from the same host.
+- Root `SHA256SUMS.txt` inventories the current release, including portable
+  entry points. `docs/SHA256SUMS.txt` is a separate historical supplement
+  inventory and does not describe this checkout.
 
 ## Dataset (released separately on Hugging Face)
 
@@ -37,6 +43,13 @@ produced the paper's numbers. Verify any file with its SHA-256 below
 |---|---|
 | `records.jsonl` (dataset index, 63,582 train + 1,355 val + 1,356 test) | `e196fa6221ff32850b476cbca8014c89f693fad577787aa668dd4025e648a4d2` |
 | `data_pipeline/x2_dataset_protocol_lrdegrade_v2.json` | `480dd13e79b8e71a72e133ec408c253d9d01323fd7d53c3067d2819b8b9d9c4c` |
+
+The original `records.jsonl` above is not the public index. HF distributes
+`dataset_index.jsonl` with relative paths, SHA-256
+`1144337310c6d191876ccc15c6443e8232fc074d81f21e7b59b59b2e91ec7196`.
+The downloader creates local `records_<splits>.jsonl` files; their hashes
+depend on extraction location. It does not claim to reproduce the historical
+index hash after paths are changed.
 
 - Split parent version: `strict_noleak_train_val_test_srcid_dedup67231_20260711_v2`
 - Protocol version: `strict_noleak_x2_sr_256to512_lrdegrade_gaussian_v2_20260821`
@@ -53,3 +66,6 @@ produced the paper's numbers. Verify any file with its SHA-256 below
 - The training harness injects the frozen evaluator; results are written per
   epoch under `<run>/eval/fullval1355_step*/` with checkpoint SHA-256 recorded
   alongside every metric set.
+- These paths describe the historical run. Public users should use root
+  `evaluate.py` and `train.py`; see [release scope](RELEASE_SCOPE.md) for the
+  adapter changes and validation limits.

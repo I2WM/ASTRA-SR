@@ -1,0 +1,4 @@
+-r requirements-eval.txt
+einops
+# Historical baseline wrappers also need external source trees.
+# See docs/RELEASE_SCOPE.md before attempting baseline reproduction.

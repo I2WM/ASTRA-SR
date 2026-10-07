@@ -1,95 +1,79 @@
-"""Download + verify + extract the ASTRA-SR dataset (FluxFlow-style UX).
-
-    pip install huggingface_hub
-    python prepare_dataset.py                       # everything
-    python prepare_dataset.py --splits val          # only the val split
-    python prepare_dataset.py --download-only       # fetch + verify, no extract
-
-Every .tar.gz archive is checked against SHA256SUMS.txt (fetched from the
-same repo) before extraction. Corrupt downloads fail loudly, never silently.
-"""
+"""Download, verify and extract selected splits of the public release."""
 from __future__ import annotations
 
 import argparse
-import hashlib
+import json
 import sys
 import tarfile
 from pathlib import Path
 
-REPO = "xiningning/astrasr_data"
-SPLITS = ("val", "test", "train")
+# GitHub: scripts/prepare_dataset.py; HF: prepare_dataset.py beside release_utils.py.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from release_utils import (ARTIFACTS, COUNTS, INDEX_SHA, PROTOCOL_SHA, REPO,
+                           REVISION, SUMS_SHA, check_hash, contained_path, write_records)
 
 
-def sha256(path: Path, buf: int = 1 << 22) -> str:
-    h = hashlib.sha256()
-    with open(path, "rb") as f:
-        for chunk in iter(lambda: f.read(buf), b""):
-            h.update(chunk)
-    return h.hexdigest()
+def selected_archives(root, splits, sums):
+    selected = sorted(name for name in sums if name.endswith('.tar.gz')
+                      and name.split('-', 1)[0] in splits)
+    if any(not any(name.startswith(s + '-') for name in selected) for s in splits):
+        raise ValueError('Checksum manifest is missing a requested split')
+    paths = [contained_path(root / 'archives', name) for name in selected]
+    for path in paths:
+        check_hash(path, sums[path.name])
+    return paths
 
 
-def main() -> None:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--repo", default=REPO)
-    ap.add_argument("--local-dir", type=Path, default=Path("./astrasr_data"))
-    ap.add_argument("--splits", nargs="+", default=list(SPLITS),
-                    choices=list(SPLITS))
-    ap.add_argument("--download-only", action="store_true")
-    ap.add_argument("--keep-archives", action="store_true",
-                    help="keep .tar.gz files after extraction")
-    args = ap.parse_args()
-
-    try:
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--local-dir', type=Path, default=Path('astrasr_data'))
+    parser.add_argument('--splits', nargs='+', choices=COUNTS, default=['val', 'test'])
+    parser.add_argument('--download-only', action='store_true')
+    parser.add_argument('--local-only', action='store_true', help='Verify/extract an existing download')
+    parser.add_argument('--artifacts', action='store_true', help='Also download weights and the PSF bank')
+    parser.add_argument('--remove-archives', action='store_true', help='Remove verified archives after extraction')
+    parser.add_argument('--keep-archives', action='store_true', help='Archives are kept by default')
+    args = parser.parse_args()
+    if args.remove_archives and args.keep_archives:
+        parser.error('--remove-archives conflicts with --keep-archives')
+    if not hasattr(tarfile, 'data_filter'):
+        parser.error('Use Python 3.12+ or a patched Python with tarfile.data_filter')
+    root = args.local_dir.resolve()
+    if not args.local_only:
         from huggingface_hub import snapshot_download
-    except ImportError:
-        sys.exit("pip install huggingface_hub  # first")
-
-    patterns = ["SHA256SUMS.txt", "dataset_index.jsonl",
-                "x2_dataset_protocol_lrdegrade_v2.json",
-                "source_manifest_strict_v2_x2_v1.jsonl"]
-    patterns += [f"archives/{s}-*.tar.gz" for s in args.splits]
-    print(f"downloading {args.repo} -> {args.local_dir}")
-    root = snapshot_download(args.repo, repo_type="dataset",
-                             local_dir=str(args.local_dir),
-                             allow_patterns=patterns)
-    root = Path(root)
-
+        patterns = ['SHA256SUMS.txt', 'dataset_index.jsonl', 'x2_dataset_protocol_lrdegrade_v2.json']
+        patterns += [f'archives/{split}-*.tar.gz' for split in args.splits]
+        if args.artifacts:
+            patterns += list(ARTIFACTS)
+        snapshot_download(REPO, repo_type='dataset', revision=REVISION,
+                          local_dir=str(root), allow_patterns=patterns, max_workers=2)
+    check_hash(root / 'SHA256SUMS.txt', SUMS_SHA)
+    check_hash(root / 'dataset_index.jsonl', INDEX_SHA)
+    check_hash(root / 'x2_dataset_protocol_lrdegrade_v2.json', PROTOCOL_SHA)
     sums = {}
-    for line in (root / "SHA256SUMS.txt").read_text().splitlines():
+    for line in (root / 'SHA256SUMS.txt').read_text(encoding='utf-8').splitlines():
         digest, name = line.split(None, 1)
-        sums[Path(name.strip()).name] = digest
-
-    archives = sorted((root / "archives").glob("*.tar.gz"))
-    if not archives:
-        sys.exit("no archives found for the requested splits")
-    ok, bad = 0, []
-    for arc in archives:
-        want = sums.get(arc.name)
-        got = sha256(arc)
-        status = "OK " if got == want else "FAIL"
-        print(f"{status} {arc.name} ({arc.stat().st_size / 1e9:.2f} GB)")
-        if got != want:
-            bad.append(arc.name)
-        else:
-            ok += 1
-    if bad:
-        sys.exit(f"hash mismatch in {bad}; delete those files and re-run")
-
+        sums[name.strip()] = digest
+    archives = selected_archives(root, set(args.splits), sums)
+    if args.artifacts:
+        for name, digest in ARTIFACTS.items():
+            check_hash(root / name, digest)
+    print(f'Verified {len(archives)} requested archives at revision {REVISION}', flush=True)
     if args.download_only:
-        print(f"verified {ok} archives; download-only, done")
         return
+    output = root / 'extracted'
+    output.mkdir(parents=True, exist_ok=True)
+    for archive in archives:
+        print(f'Extracting {archive.name}', flush=True)
+        with tarfile.open(archive, 'r:gz') as stream:
+            stream.extractall(output, filter='data')
+    records = write_records(root, args.splits)
+    if args.remove_archives:
+        for archive in archives:
+            archive.unlink()
+    print(json.dumps({'records': str(records), 'splits': sorted(set(args.splits)),
+                      'note': 'Local index paths differ from the historical server index.'}))
 
-    out_root = args.local_dir / "extracted"
-    out_root.mkdir(exist_ok=True)
-    for arc in archives:
-        print(f"extracting {arc.name} ...", flush=True)
-        with tarfile.open(arc, "r:gz") as tf:
-            tf.extractall(out_root, filter="data")
-        if not args.keep_archives:
-            arc.unlink()
-    print(f"done. dataset tree at {out_root} "
-          f"({sum(1 for _ in out_root.rglob('*.fits'))} fits files)")
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

@@ -69,20 +69,30 @@ def main() -> None:
     parser.add_argument("--checkpoint", type=Path, required=True)
     parser.add_argument("--input", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--device", default="cuda" if _cuda_available() else "cpu")
+    parser.add_argument("--device", default="auto")
+    parser.add_argument("--checkpoint-sha256", default=None,
+                        help="Hash for a locally trained checkpoint; default is the released CONTROL hash")
     args = parser.parse_args()
 
     import torch
     from paper_models import build_model
+    from release_utils import ARTIFACTS, check_hash, verify_snapshot
+
+    verify_snapshot()
+    check_hash(args.checkpoint, args.checkpoint_sha256 or ARTIFACTS["checkpoints/astra_sr_control_epoch20.pt"])
+    if args.device == "auto":
+        args.device = "cuda" if torch.cuda.is_available() else "cpu"
 
     model = build_model("CONTROL", apply_ablation=False).to(args.device).eval()
     saved = torch.load(args.checkpoint, map_location=args.device, weights_only=False)
     model.load_state_dict(saved["model"], strict=True)
+    del saved
 
     lr = load_input(args.input)
     x = torch.from_numpy(lr)[None, None].to(args.device)
     with torch.no_grad():
         hr = model(x)[0, 0].float().cpu().numpy()
+    args.output.parent.mkdir(parents=True, exist_ok=True)
     save_output(args.output, hr, scale_back=args.input.suffix.lower()
                 in (".fits", ".fit", ".fts", ".npy"))
     print(f"input  {tuple(lr.shape)}  range [{lr.min():.4f}, {lr.max():.4f}]")

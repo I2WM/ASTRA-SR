@@ -37,103 +37,7 @@ ARRAYS = ("clean_hr512", "clean_lr256", "degraded_lr256",
           "noise_map_lr256", "noise_only_lr256", "psf_only_lr256")
 SAMPLES_PER_SHARD = 512
 
-CARD = """---
-license: cc-by-4.0
-task_categories:
-  - image-to-image
-tags:
-  - astronomy
-  - super-resolution
-  - blind-restoration
-  - atmospheric-turbulence
-  - cassini
-size_categories:
-  - 10K<n<100K
-configs:
-  - config_name: default
-    data_files: archives/*.tar.gz
----
-
-# ASTRA-SR Dataset
-
-Physics-degraded planetary super-resolution benchmark accompanying
-**ASTRA-SR: Atmospheric Seeing and Turbulence Restoration for Astronomical
-Image Super-Resolution** (ICASSP 2027, under review).
-
-Clean sources are curated NASA/ESA **Cassini ISS** RAW observations
-(~400k collected frames -> ~20k high-dynamic-range clean sources).
-Paired degraded LR inputs are synthesized with:
-
-- turbulence strengths at six altitudes {{0.5, 1, 2, 4, 8, 16}} km sampled
-  from **real MASS observation records**,
-- propagated moving phase screens and exposure-averaged, spatially varying
-  PSF fields (mean kernel + 12 PCA basis kernels),
-- Gaussian sensor/read noise.
-
-| split | samples                      | compressed shards |
-|-------|------------------------------|-------------------|
-| train | 63,582 (57,860 real + 5,722 png) | archives/train-*.tar.gz |
-| val   | 1,355 (677 real + 678 png)     | archives/val-*.tar.gz |
-| test  | 1,356 (678 real + 678 png)     | archives/test-*.tar.gz |
-
-Splits are disjoint by `source_id`. Validation follows the frozen protocol
-`strict_noleak_x2_sr_256to512_lrdegrade_gaussian_v2_20260821`.
-
-## Layout
-
-Each shard extracts to
-`<split>/<kind>/<array>/<source_id>_<hash>.fits` with six aligned float32
-arrays per sample:
-`clean_hr512` (512x512), `clean_lr256`, `degraded_lr256`,
-`noise_map_lr256`, `noise_only_lr256`, `psf_only_lr256` (each 256x256).
-
-- `dataset_index.jsonl` - public per-sample index (source_id, split, kind,
-  sample_seed, protocol/psf SHA-256; internal paths stripped)
-- `x2_dataset_protocol_lrdegrade_v2.json` - frozen degradation protocol
-- `source_manifest_strict_v2_x2_v1.jsonl` - split construction manifest
-  (66,293 records)
-- `SHA256SUMS.txt` - SHA-256 of every archive
-- `checkpoints/astra_sr_control_epoch20.pt` - released ASTRA-SR (CONTROL)
-  weights, SHA-256 `{ckpt_sha}`
-- `psf_bank/psf_row_34239_M5_d0.333.npy` - PSF bank row (32x32 field of
-  33x33 kernels), SHA-256 `{psf_sha}`
-
-## Usage
-
-```bash
-# one-liner: download + SHA-256 verify + extract (same UX as I2WM/FluxFlow)
-python prepare_dataset.py --splits val test        # train optional
-# or raw download via CLI:
-hf download {repo_id} --repo-type dataset --local-dir ./astrasr_data
-```
-
-`prepare_dataset.py` downloads only the splits you ask for, verifies every
-archive against `SHA256SUMS.txt`, and extracts the aligned FITS arrays.
-
-Training code, model definition, evaluation protocol and a ready-made
-`infer.py` live in the companion code repository:
-[**gexining/ASTRA-SR**](https://github.com/gexining/ASTRA-SR)
-(to be moved into the I2WM GitHub org).
-
-## Data attribution
-
-Underlying Cassini ISS raw images are courtesy of
-NASA / JPL-Caltech / Space Science Institute. Derivative clean sources
-are distributed under CC BY 4.0 with credit to the original archive.
-
-## Citation
-
-```bibtex
-@inproceedings{{astra-sr-2027,
-  title  = {{ASTRA-SR: Atmospheric Seeing and Turbulence Restoration for
-             Astronomical Image Super-Resolution}},
-  author = {{Ge, Xining and Cui, Ziteng and Liu, Shuhong}},
-  booktitle = {{ICASSP}},
-  year   = {{2027}},
-  note   = {{under review}},
-}}
-```
-"""
+CARD_PATH = Path(__file__).resolve().parents[1] / 'docs' / 'DATASET_CARD.md'
 
 
 def sha256(path: Path, buf: int = 1 << 22) -> str:
@@ -229,8 +133,10 @@ def upload(workdir: Path, repo: str, splits: list[str]) -> None:
     me = api.whoami()
     print("uploading as:", me["name"])
     api.create_repo(repo, repo_type="dataset", exist_ok=True)
-    (workdir / "README.md").write_text(CARD.format(
-        ckpt_sha=CKPT_SHA, psf_sha=PSF_SHA, repo_id=repo), encoding="utf-8")
+    (workdir / "README.md").write_bytes(CARD_PATH.read_bytes())
+    code_root = Path(__file__).resolve().parents[1]
+    (workdir / "prepare_dataset.py").write_bytes((code_root / "scripts/prepare_dataset.py").read_bytes())
+    (workdir / "release_utils.py").write_bytes((code_root / "release_utils.py").read_bytes())
     api.upload_folder(folder_path=str(workdir), repo_id=repo,
                       repo_type="dataset",
                       ignore_patterns=["*.tmp", ".DS_Store"])

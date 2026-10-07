@@ -14,3 +14,11 @@ psf_bank/*.npy
 runs/
 outputs/
 *.log
+
+# Downloaded datasets and machine-specific environments
+astrasr_data/
+datasets/
+.venv/
+*.local.json
+smoke/
+smoke_v2/
