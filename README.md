@@ -33,7 +33,7 @@ machine using [PyTorch's installation instructions](https://pytorch.org/get-star
 then install the dependencies from the repository root:
 
 ```bash
-git clone https://github.com/gexining/ASTRA-SR.git
+git clone https://github.com/I2WM/ASTRA-SR.git
 cd ASTRA-SR
 python -m pip install -r requirements.txt
 # Training or evaluation:

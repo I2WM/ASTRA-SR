@@ -17,7 +17,7 @@ Dataset and the CONTROL checkpoint accompanying
 [ASTRA-SR: Atmospheric Seeing and Turbulence Restoration for Astronomical Image Super-Resolution](https://arxiv.org/abs/2609.26731)
 by Xining Ge, Ziteng Cui and Shuhong Liu.
 
-[Code and instructions](https://github.com/gexining/ASTRA-SR) ·
+[Code and instructions](https://github.com/I2WM/ASTRA-SR) ·
 [Checkpoint](https://huggingface.co/datasets/xiningning/astrasr_data/tree/main/checkpoints)
 
 ## Release
@@ -49,7 +49,7 @@ Paper Table 1 uses **validation**, not test, with fixed epoch-20 selection.
 Recommended: use the companion code repository, which includes both helper files:
 
 ```bash
-git clone https://github.com/gexining/ASTRA-SR.git
+git clone https://github.com/I2WM/ASTRA-SR.git
 cd ASTRA-SR
 python -m pip install -r requirements.txt
 python scripts/prepare_dataset.py --splits val --local-dir astrasr_data --artifacts
