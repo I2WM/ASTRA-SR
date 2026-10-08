@@ -137,6 +137,8 @@ def upload(workdir: Path, repo: str, splits: list[str]) -> None:
     code_root = Path(__file__).resolve().parents[1]
     (workdir / "prepare_dataset.py").write_bytes((code_root / "scripts/prepare_dataset.py").read_bytes())
     (workdir / "release_utils.py").write_bytes((code_root / "release_utils.py").read_bytes())
+    for notice in ("LICENSE", "LICENSE_SCOPE.md", "DATA_SOURCES.md", "THIRD_PARTY_NOTICES.md"):
+        (workdir / notice).write_bytes((code_root / notice).read_bytes())
     api.upload_folder(folder_path=str(workdir), repo_id=repo,
                       repo_type="dataset",
                       ignore_patterns=["*.tmp", ".DS_Store"])

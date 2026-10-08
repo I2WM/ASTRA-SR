@@ -9,6 +9,14 @@ from pathlib import Path, PurePosixPath
 ROOT = Path(__file__).resolve().parent
 REPO = "xiningning/astrasr_data"
 REVISION = "554f85202f20b94e2e569b6d2d969adf4f344933"
+# Data bytes stay pinned independently of this later licensing/source notice.
+LICENSE_REVISION = "6c1228d752a229ed80d63d49a0d8c012f2fa084c"
+LICENSE_FILES = {
+    "LICENSE": "41003d4a74749c0220e33dd415042164b5a1093ed401f36277234f772d22d3d0",
+    "LICENSE_SCOPE.md": "752f6a39b49890c0cad34d08fe1fef4bc78c3b986f23acd4a6d78ffa8145ee33",
+    "DATA_SOURCES.md": "477a417b8e8472099c06caec99aff11c3cab2e9bd1de0949509d5cb104c3a3ab",
+    "THIRD_PARTY_NOTICES.md": "41b27b826562ee08c6b2916951dc35db4a9ea9ef7a674d98aa0067278e0113ea",
+}
 INDEX_SHA = "1144337310c6d191876ccc15c6443e8232fc074d81f21e7b59b59b2e91ec7196"
 PROTOCOL_SHA = "480dd13e79b8e71a72e133ec408c253d9d01323fd7d53c3067d2819b8b9d9c4c"
 SUMS_SHA = "389c143607cb6b04de94c8249a8736a5b7089121c1668120a0a1ef6d7d9160ed"

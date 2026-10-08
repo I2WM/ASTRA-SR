@@ -7,6 +7,7 @@ from pathlib import Path
 import sys
 import tarfile
 import tempfile
+import types
 import unittest
 from unittest.mock import patch
 
@@ -41,9 +42,15 @@ class ReleaseTests(unittest.TestCase):
         index.write_text(''.join(json.dumps(r) + '\n' for r in self.rows), encoding='utf-8')
         sums = self.root / 'SHA256SUMS.txt'
         sums.write_text(''.join(f'{value}  {name}\n' for name,value in self.sums.items()))
+        notices = {}
+        for name in ('LICENSE', 'LICENSE_SCOPE.md', 'DATA_SOURCES.md', 'THIRD_PARTY_NOTICES.md'):
+            path = self.root / name
+            path.write_text('Test-only license/source fixture: ' + name, encoding='utf-8')
+            notices[name] = release.sha256(path)
         for module in (release, download):
             for key, value in [('COUNTS', {'train': 1, 'val': 1}), ('INDEX_SHA', release.sha256(index)),
-                               ('PROTOCOL_SHA', self.protocol_hash), ('SUMS_SHA', release.sha256(sums))]:
+                               ('PROTOCOL_SHA', self.protocol_hash), ('SUMS_SHA', release.sha256(sums)),
+                               ('LICENSE_FILES', notices)]:
                 if hasattr(module, key):
                     self.enterContext(patch.object(module, key, value))
 
@@ -95,6 +102,35 @@ class ReleaseTests(unittest.TestCase):
             f.write('{}\n')
         with self.assertRaisesRegex(ValueError, 'SHA-256 mismatch'):
             release.public_records(self.root)
+
+    def test_missing_license_stops_before_extraction(self):
+        (self.root / 'LICENSE').unlink()
+        with self.assertRaises(FileNotFoundError):
+            self.run_download()
+        self.assertFalse((self.root / 'extracted').exists())
+
+    def test_modified_source_credit_stops_before_extraction(self):
+        (self.root / 'DATA_SOURCES.md').write_text('Changed source credit')
+        with self.assertRaisesRegex(ValueError, 'SHA-256 mismatch'):
+            self.run_download()
+        self.assertFalse((self.root / 'extracted').exists())
+
+    def test_download_fetches_data_and_notice_revisions_separately(self):
+        calls = []
+        module = types.ModuleType('huggingface_hub')
+        def snapshot(*args, **kwargs):
+            calls.append(kwargs)
+            return str(self.root)
+        module.snapshot_download = snapshot
+        with patch.dict(sys.modules, {'huggingface_hub': module}), \
+             patch.object(sys, 'argv', ['prepare_dataset.py', '--local-dir', str(self.root),
+                                       '--splits', 'val', '--download-only']), \
+             contextlib.redirect_stdout(io.StringIO()):
+            download.main()
+        self.assertEqual(len(calls), 2)
+        self.assertEqual(calls[0]['revision'], release.REVISION)
+        self.assertEqual(calls[1]['revision'], release.LICENSE_REVISION)
+        self.assertEqual(set(calls[1]['allow_patterns']), set(release.LICENSE_FILES))
 
 
 if __name__ == '__main__':

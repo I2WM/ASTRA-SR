@@ -10,7 +10,8 @@ from pathlib import Path
 # GitHub: scripts/prepare_dataset.py; HF: prepare_dataset.py beside release_utils.py.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from release_utils import (ARTIFACTS, COUNTS, INDEX_SHA, PROTOCOL_SHA, REPO,
-                           REVISION, SUMS_SHA, check_hash, contained_path, write_records)
+                           REVISION, SUMS_SHA, LICENSE_REVISION, LICENSE_FILES,
+                           check_hash, contained_path, write_records)
 
 
 def selected_archives(root, splits, sums):
@@ -47,6 +48,10 @@ def main():
             patterns += list(ARTIFACTS)
         snapshot_download(REPO, repo_type='dataset', revision=REVISION,
                           local_dir=str(root), allow_patterns=patterns, max_workers=2)
+        snapshot_download(REPO, repo_type='dataset', revision=LICENSE_REVISION,
+                          local_dir=str(root), allow_patterns=list(LICENSE_FILES), max_workers=2)
+    for name, digest in LICENSE_FILES.items():
+        check_hash(root / name, digest)
     check_hash(root / 'SHA256SUMS.txt', SUMS_SHA)
     check_hash(root / 'dataset_index.jsonl', INDEX_SHA)
     check_hash(root / 'x2_dataset_protocol_lrdegrade_v2.json', PROTOCOL_SHA)

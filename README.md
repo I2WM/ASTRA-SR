@@ -6,7 +6,7 @@
   <a href="https://arxiv.org/abs/2609.26731"><img src="https://img.shields.io/badge/arXiv-2609.26731-B31B1B" alt="Paper"></a>
   <a href="https://huggingface.co/datasets/xiningning/astrasr_data"><img src="https://img.shields.io/badge/Dataset-Hugging_Face-yellow" alt="Dataset"></a>
   <a href="https://huggingface.co/datasets/xiningning/astrasr_data/tree/main/checkpoints"><img src="https://img.shields.io/badge/Checkpoint-Hugging_Face-green" alt="Checkpoint"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/Code-MIT-lightgrey" alt="License"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-CC_BY--NC_4.0-lightgrey" alt="CC BY-NC 4.0: noncommercial code, weights and dataset"></a>
 </p>
 
 Official implementation of **ASTRA-SR** for blind, single-frame astronomical
@@ -108,6 +108,10 @@ python scripts/prepare_dataset.py --splits test --local-dir astrasr_data
 
 The script pins the release revision, checks SHA-256, processes only requested
 splits, and creates local `records_val.jsonl`, `records_train_val.jsonl`, etc.
+It also downloads and verifies the four license/source notices from the
+2026-10-08 licensing revision (`6c1228d`), so the current CC BY-NC terms and
+Cassini/NASA credits accompany the data. Archive bytes remain pinned to the
+original data revision; the notice revision is tracked separately.
 The immutable `dataset_index.jsonl` uses relative paths; local indices use your
 extraction directory and deliberately have different hashes from the historical
 server `records.jsonl`. Archives are kept by default. Use `--remove-archives`
@@ -221,9 +225,23 @@ line-ending conversion does not invalidate the scientific snapshot hashes.
 
 ## License and attribution
 
-Original project code carries the existing [MIT license](LICENSE). This does
-not replace the terms of any upstream code; see [third-party notices](THIRD_PARTY_NOTICES.md).
-The dataset card currently declares CC BY 4.0. Cassini ISS sources are credited
-to NASA/JPL-Caltech/Space Science Institute. A complete mapping of upstream
-assets, including the auxiliary `png` branch, remains to be documented; the
-existing dataset declaration is not an independent rights audit.
+**Code, model weights and dataset contributions are released under
+[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/): attribution
+is required and commercial use is not granted.** See the full [LICENSE](LICENSE)
+and [license scope](LICENSE_SCOPE.md). Upstream materials retain their own
+terms; permissions validly granted for earlier versions are not revoked.
+
+The Cassini-derived data originate from **NASA's Cassini Imaging Science
+Subsystem (ISS)**. We acknowledge **NASA / JPL-Caltech / Space Science Institute**
+for the underlying observations and the **NASA Planetary Data System** for
+the archive. Official sources:
+[Cassini mission](https://science.nasa.gov/mission/cassini/),
+[Cassini ISS archive](https://pds-rings.seti.org/cassini/iss/),
+[NASA PDS](https://pds.nasa.gov/).
+
+ASTRA-SR adds source curation, paired resampling, simulated turbulence/noise
+degradation and split metadata. These are processed derivatives, not
+unmodified NASA products. Retain source credits and indicate changes.
+See [data sources and acknowledgments](DATA_SOURCES.md) for a reusable credit
+line, processing details and the separate auxiliary `png` source status.
+[Third-party notices](THIRD_PARTY_NOTICES.md) document remaining provenance work.

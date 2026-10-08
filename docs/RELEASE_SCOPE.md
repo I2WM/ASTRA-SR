@@ -84,8 +84,11 @@ checks and smoke tests do not certify the reported research metrics. README
 results are transcribed from arXiv:2609.26731v1, Table 1.
 
 See [third-party notices](../THIRD_PARTY_NOTICES.md) for unresolved provenance
-and license mapping. The root MIT declaration and HF CC BY 4.0 metadata
-were already present; this audit does not supply missing redistribution rights.
+and license mapping. As of 2026-10-08, the project declares CC BY-NC 4.0 for
+its original code, weights and dataset contributions. See
+[license scope](../LICENSE_SCOPE.md) and [data sources](../DATA_SOURCES.md).
+The declaration does not supply missing upstream redistribution rights or
+revoke permissions validly granted for earlier versions.
 
 The local `page/` work is not part of the current committed code release.
 Repository transfer to I2WM and website deployment are separate operations.

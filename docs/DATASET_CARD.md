@@ -1,5 +1,5 @@
 ---
-license: cc-by-4.0
+license: cc-by-nc-4.0
 task_categories:
   - image-to-image
 tags:
@@ -74,6 +74,12 @@ splits are already cached. Archives remain on disk unless `--remove-archives`
 is explicitly selected. `--download-only` skips extraction; `--local-only`
 verifies and extracts an existing download without network requests.
 
+The current helper also downloads and verifies `LICENSE`, `LICENSE_SCOPE.md`,
+`DATA_SOURCES.md` and `THIRD_PARTY_NOTICES.md` from licensing revision
+`6c1228d752a229ed80d63d49a0d8c012f2fa084c`. The original data revision and this
+notice revision are pinned separately. For an older local download that lacks
+these notices, run the current helper normally once before using `--local-only`.
+
 The helper writes a local `records_val.jsonl`, `records_train_val.jsonl`, etc.
 with paths rebased to your extraction directory. It does not modify the
 immutable public index and does not pretend the derived index retains the
@@ -120,13 +126,38 @@ and re-evaluation of the entire dataset. The portable training and evaluation
 adapters have not completed a new 20-epoch training/full-validation reproduction.
 See the code repository's `docs/RELEASE_SCOPE.md` for scope and validation.
 
-## Attribution and license
+## License: noncommercial use
 
-The existing dataset metadata declares **CC BY 4.0**. Cassini ISS sources are
-credited to NASA/JPL-Caltech/Space Science Institute. A complete upstream
-asset/license mapping, including the auxiliary `png` branch, remains pending
-maintainer review; this declaration is not an independent rights audit.
-See `THIRD_PARTY_NOTICES.md` in the code repository.
+The authors' **code, released model weights and dataset contributions** are
+offered under **[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)**.
+Attribution is required; commercial use is not granted by this license.
+Retain source notices, link the license and indicate modifications. The full
+`LICENSE` and `LICENSE_SCOPE.md` accompany this dataset and the companion code.
+Upstream materials keep their applicable terms. This update does not revoke
+permissions validly granted under licenses accompanying earlier versions.
+
+## Data sources: Cassini ISS / NASA
+
+The Cassini-derived `real` branch originates from the **Cassini Imaging
+Science Subsystem (ISS)**. Source observations are credited to
+**NASA / JPL-Caltech / Space Science Institute**; the official mission and
+archive references are:
+
+- [NASA Cassini-Huygens mission](https://science.nasa.gov/mission/cassini/)
+- [NASA Planetary Data System](https://pds.nasa.gov/)
+- [PDS Ring-Moon Systems Node: Cassini ISS](https://pds-rings.seti.org/cassini/iss/)
+
+ASTRA-SR adds image curation/preprocessing, paired resampling, synthesized
+spatially varying turbulence blur and Gaussian noise, and split metadata.
+The released FITS arrays are processed derivatives, not an unmodified NASA
+archive or a NASA-endorsed benchmark. Credit the original observations and
+the ASTRA-SR authors and paper when reusing them.
+
+`DATA_SOURCES.md` contains a reusable credit line and processing details.
+The auxiliary `png` branch has a separate source history; its complete
+upstream attribution/license mapping remains pending maintainer verification.
+Original NASA/Cassini source terms are not replaced by the project's license.
+See `THIRD_PARTY_NOTICES.md` and `LICENSE_SCOPE.md` for the scope of the grant.
 
 ## Citation
 
